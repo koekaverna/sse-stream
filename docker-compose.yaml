@@ -1,0 +1,22 @@
+services:
+  php:
+    build:
+      context: ./docker
+      target: development
+    restart: always
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8000:8000
+  http:
+    build:
+      context: ./docker
+      target: nginx
+    restart: always
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - php
+    ports:
+      - 88:80
