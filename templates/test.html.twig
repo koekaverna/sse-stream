@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div id="messages"></div>
+    <script>
+        const eventSource = new EventSource("http://localhost:8000/sse");
+        eventSource.addEventListener("rand", (event) => {
+            const messageList = document.getElementById("messages");
+
+            const newMessage = document.createElement("p");
+            const { value } = JSON.parse(event.data);
+            newMessage.textContent = value;
+            messageList.appendChild(newMessage);
+        });
+    </script>
+{% endblock %}

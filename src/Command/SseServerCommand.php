@@ -35,7 +35,8 @@ final class SseServerCommand extends Command
                 return new Response(
                     Response::STATUS_OK,
                     [
-                        'Content-Type' => 'text/event-stream'
+                        'Content-Type' => 'text/event-stream',
+                        'Access-Control-Allow-Origin' => '*',
                     ],
                     $stream
                 );
